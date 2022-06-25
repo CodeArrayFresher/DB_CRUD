@@ -16,7 +16,7 @@ namespace MyApp.DB.DBoperations
                 {
                     Fname = model.Fname,
                     Lname = model.Lname,
-                    Email   = model.Email,
+                    Email = model.Email,
                     Code = model.Code
                 };
 
@@ -34,6 +34,60 @@ namespace MyApp.DB.DBoperations
                 context.SaveChanges();
                 return emp.Id;
             }
+        }
+
+
+        public List<EmployeeModel> GetAllEmployees()
+        {
+            using (var context = new EmployeeDBEntities())
+            {
+                var result = context.Employee.Select(x => new EmployeeModel()
+                {
+                    Id = x.Id,
+                    Fname = x.Fname,
+                    Lname = x.Lname,
+                    Email = x.Email,
+                    Code = x.Code,
+                    Addressid = x.Addressid,
+                    Address = new AddressModel()
+                    {
+                        Id =  x.Address.Id,
+                        Details = x.Address.Details,
+                        Country = x.Address.Country,
+                        State = x.Address.State
+                    }
+                }
+                 ).DefaultIfEmpty().ToList() ;
+                return result;
+            }
+
+        }
+        public EmployeeModel GetEmployee(int id)
+        {
+            using (var context = new EmployeeDBEntities())
+            {
+                var result = context.Employee
+                    .Where(x=> x.Id == id)
+                    .Select(x => new EmployeeModel()
+                {
+                    Id = x.Id,
+                    Fname = x.Fname,
+                    Lname = x.Lname,
+                    Email = x.Email,
+                    Code = x.Code,
+                    Addressid = x.Addressid,
+                    Address = new AddressModel()
+                    {
+                        Id = x.Address.Id,
+                        Details = x.Address.Details,
+                        Country = x.Address.Country,
+                        State = x.Address.State
+                    }
+                }
+                 ).FirstOrDefault();
+                return result;
+            }
+
         }
     }
 }

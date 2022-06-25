@@ -35,5 +35,20 @@ namespace MVCappwithDB.Controllers
             }
             return View();
         }
+
+        public ActionResult GetAllRecords()
+        {
+            var result = repository.GetAllEmployees();
+
+            return View(result);
+        }
+
+        public ActionResult Details(int id)
+        {
+            var empp = repository.GetEmployee(id);
+            return View(empp);
+        }
     }
+
+  
 }

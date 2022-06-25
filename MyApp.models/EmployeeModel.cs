@@ -13,7 +13,7 @@ namespace MyApp.models
         public string Fname { get; set; }
         public string Lname { get; set; }
         public string Email { get; set; }
-        public int? Addressid { get; set; }
+        public Nullable<int> Addressid { get; set; }
         public string Code { get; set; }
 
         public AddressModel Address { get; set; }   
