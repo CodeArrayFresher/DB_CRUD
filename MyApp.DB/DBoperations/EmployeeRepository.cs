@@ -19,6 +19,17 @@ namespace MyApp.DB.DBoperations
                     Email   = model.Email,
                     Code = model.Code
                 };
+
+                if (model.Address != null)
+                {
+                    emp.Address = new Address()
+                    {
+                        Details = model.Address.Details,
+                        State = model.Address.State,
+                        Country = model.Address.Country
+                    };
+                }
+
                 context.Employee.Add(emp);
                 context.SaveChanges();
                 return emp.Id;
