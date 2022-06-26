@@ -89,5 +89,28 @@ namespace MyApp.DB.DBoperations
             }
 
         }
+
+        public bool UpdateEmployee(int id, EmployeeModel model)
+        {
+            using (var context = new EmployeeDBEntities())
+            {
+                var employee = context.Employee.FirstOrDefault(x => x.Id == id);
+
+                    if (employee != null)
+                {
+                    employee.Fname = model.Fname;
+                        employee.Lname = model.Lname;
+                        employee.Email = model.Email;
+                    employee.Code = model.Code;
+                    //employee.Address = new Address()
+                    //{
+                    //    = model.Address.Details
+                    //};
+
+                }
+                    context.SaveChanges();
+                return true;
+            }
+        }
     }
 }
